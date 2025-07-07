@@ -1,0 +1,23 @@
+# Build outputs
+**/bin/
+**/obj/
+**/dist/
+**/build/
+
+# Dependencies
+**/node_modules/
+**/packages/
+
+# IDE files
+.vs/
+.vscode/
+*.suo
+*.user
+
+# Environment files
+.env
+**/.env
+
+# Logs
+*.log
+logs/
