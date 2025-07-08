@@ -2,10 +2,12 @@ package com.user.service;
 
 import com.user.entity.User;
 import com.user.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserService {
     private UserRepository userRepository;
 
