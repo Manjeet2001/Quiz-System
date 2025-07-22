@@ -26,6 +26,10 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+    public List<Question> getQuestionsByIds(List<Long> ids) {
+        return questionRepository.findAllById(ids);
+    }
+
     public Question mapToEntity(QuestionDTO dto) {
         Question q = new Question();
         q.setId(dto.getId());
@@ -52,4 +56,5 @@ public class QuestionService {
 
         return dto;
     }
+
 }

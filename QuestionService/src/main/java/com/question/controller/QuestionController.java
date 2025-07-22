@@ -2,6 +2,7 @@ package com.question.controller;
 
 import com.question.dto.QuestionDTO;
 import com.question.entity.Question;
+import com.question.repository.QuestionRepository;
 import com.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @PostMapping
     public ResponseEntity<QuestionDTO> createQuestion(@RequestBody QuestionDTO dto) {
@@ -40,5 +44,11 @@ public class QuestionController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(questions);
     }
+
+    @GetMapping("/bulk")
+    public List<Question> getQuestionsByIds(@RequestParam("ids") List<Long> ids) {
+        return questionService.getQuestionsByIds(ids);
+    }
+
 }
 

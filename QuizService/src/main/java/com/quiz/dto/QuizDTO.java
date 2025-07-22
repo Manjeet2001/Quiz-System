@@ -1,5 +1,6 @@
 package com.quiz.dto;
 
+import com.quiz.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class QuizDTO {
     private String title;
     private String description;
     private Integer duration;
-    private List<Long> questionIds;
+    private List<Question> questions;
 
 }
 

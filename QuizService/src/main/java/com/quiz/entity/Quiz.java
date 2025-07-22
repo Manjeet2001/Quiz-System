@@ -26,4 +26,7 @@ public class Quiz {
     private List<Long> questionIds;
 
     private Long createdByUserId;
+
+    @Transient
+    private List<Question> questions;
 }
