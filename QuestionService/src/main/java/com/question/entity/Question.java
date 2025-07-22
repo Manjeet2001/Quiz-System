@@ -21,7 +21,6 @@ public class Question{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String content;
     private String optionA;
     private String optionB;
