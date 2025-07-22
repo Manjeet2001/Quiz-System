@@ -1,14 +1,15 @@
 package com.user.service;
 
 import com.user.entity.User;
+import com.user.dto.UserDTO;
 import com.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -19,14 +20,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> getUser(Long id) {
-        return userRepository.findById(id);
+    public UserDTO getUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("User with id: " + id + "not found"));
+
+        return mapToDto(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
-
 
     public ResponseEntity<User> deleteUserWithId(Long id) {
         Optional<User> user = userRepository.findById(id);
@@ -34,6 +40,14 @@ public class UserService {
             userRepository.delete(user.get());
         }
         return ResponseEntity.ok().build();
+    }
+
+    public UserDTO mapToDto(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
+        return dto;
     }
 
 }
