@@ -1,9 +1,9 @@
 package com.quiz.controller;
 
 import com.quiz.dto.QuizDTO;
-import com.quiz.entity.Quiz;
 import com.quiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +17,19 @@ public class QuizController {
     private QuizService quizService;
 
     @PostMapping
-    public ResponseEntity<Quiz> createQuiz(@RequestBody Quiz quiz) {
-        return ResponseEntity.ok(quizService.createQuiz(quiz));
+    public ResponseEntity<QuizDTO> createQuiz(@RequestBody QuizDTO quizDTO) {
+        QuizDTO created = quizService.createQuiz(quizDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Quiz> getQuiz(@PathVariable Long id) {
-        return quizService.getQuiz(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<QuizDTO> getQuiz(@PathVariable Long id) {
+        return ResponseEntity.ok(quizService.getQuiz(id));
     }
 
     @GetMapping
-    public List<Quiz> getAllQuizzes() {
-        return quizService.getAllQuiz();
+    public ResponseEntity<List<QuizDTO>> getAllQuizzes() {
+        return ResponseEntity.ok(quizService.getAllQuiz());
     }
 }
 
