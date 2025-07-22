@@ -1,5 +1,6 @@
 package com.result.controller;
 
+import com.result.dto.ResultDTO;
 import com.result.entity.Result;
 import com.result.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +17,20 @@ public class ResultController {
     private ResultService resultService;
 
     @PostMapping
-    public ResponseEntity<Result> createResult(@RequestBody Result result) {
+    public ResponseEntity<ResultDTO> createResult(@RequestBody Result result) {
         return ResponseEntity.ok(resultService.createResult(result));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Result> getResult(@PathVariable Long id) {
+    public ResponseEntity<ResultDTO> getResult(@PathVariable Long id) {
         return resultService.getResult(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public List<Result> getAllResults() {
-        return resultService.getAllResults();
+    public ResponseEntity<List<ResultDTO>> getAllResults() {
+        return ResponseEntity.ok(resultService.getAllResults());
     }
 }
 
