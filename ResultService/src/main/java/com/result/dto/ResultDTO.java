@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -16,6 +17,7 @@ public class ResultDTO {
     private Long userId;
     private Long quizId;
     private Integer score;
-    private LocalDateTime submittedAt;
+    private LocalDateTime attemptedAt;
+    private Map<Long, String> answers;
 }
 

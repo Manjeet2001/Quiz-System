@@ -28,6 +28,18 @@ public class ResultController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<String> fetchUserAndProcess(@PathVariable Long userId) {
+        resultService.fetchUserAndProcessResult(userId);
+        return ResponseEntity.ok("User fetched and result processed");
+    }
+
+    @GetMapping("/quiz/{quizId}")
+    public ResponseEntity<String> getResultForQuiz(@PathVariable Long quizId) {
+        resultService.processQuizResult(quizId);
+        return ResponseEntity.ok("Quiz processed");
+    }
+
     @GetMapping
     public ResponseEntity<List<ResultDTO>> getAllResults() {
         return ResponseEntity.ok(resultService.getAllResults());

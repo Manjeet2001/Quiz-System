@@ -20,9 +20,12 @@ public class Result {
     private Long resultId;
 
     private Long userId;
+    private String userName;
+    private String userEmail;
+
     private Long quizId;
     private Integer score;
-    private LocalDateTime submittedAt;
+    private LocalDateTime attemptedAt;
 
     @ElementCollection
     private Map<Long, String> answer; // questionId -> selectedOption
