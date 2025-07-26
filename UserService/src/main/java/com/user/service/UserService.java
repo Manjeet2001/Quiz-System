@@ -1,7 +1,11 @@
 package com.user.service;
 
+import com.user.clients.QuizClient;
+import com.user.clients.ResultClient;
+import com.user.dto.QuizDTO;
 import com.user.entity.User;
 import com.user.dto.UserDTO;
+import com.user.entity.UserDataResponse;
 import com.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +20,20 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ResultClient resultClient;
+
+    @Autowired
+    private QuizClient quizClient;
+
     public User createUser(User user) {
         return userRepository.save(user);
+    }
+
+    public UserDataResponse fetchQuizzesAndResults(Long userId) {
+        String result = resultClient.getUserResult(userId);
+        List<QuizDTO> quizzes = quizClient.getAllQuizzes();
+        return new UserDataResponse(result, quizzes);
     }
 
     public UserDTO getUser(Long id) {

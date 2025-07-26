@@ -1,6 +1,7 @@
 package com.user.controller;
 
 import com.user.entity.User;
+import com.user.entity.UserDataResponse;
 import com.user.service.UserService;
 import com.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.mapToDto(savedUser)); // No password in response
     }
 
-
+    @GetMapping("/{userId}/data")
+    public ResponseEntity<UserDataResponse> getUserData(@PathVariable Long userId) {
+        return ResponseEntity.ok(userService.fetchQuizzesAndResults(userId));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
